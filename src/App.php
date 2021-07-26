@@ -70,36 +70,39 @@ class App
 
                 $youtubeId = $storyToPost['id'];
 
-                if ($actionUploaderAccountName === $pierreMiniggioInstagramActionUploaderAccountName) {
-                    try {
-                        $temporaryVideoFilePath = $actionRenderer->render(
-                            $pierreMiniggioRendererProject['token'],
-                            $pierreMiniggioRendererProject['account'],
-                            $pierreMiniggioRendererProject['project'],
-                            180,
-                            3,
-                            [
-                                'typeId' => (string) rand(1, 4),
-                                'thumbnail' => 'https://www.stored-youtube-video-thumbnails.ggio.fr/' . $youtubeId
-                            ]
-                        );
-                    } catch (GithubActionRemotionRendererException $e) {
-                        echo PHP_EOL . 'Error while rendering ! ' . $e->getMessage();
+                $storyFileName = $youtubeId . '.mp4';
+                $videoFilePath = $cacheDir . $storyFileName;
+
+                if (! file_exists($videoFilePath)) {
+                    if ($actionUploaderAccountName === $pierreMiniggioInstagramActionUploaderAccountName) {
+                        try {
+                            $temporaryVideoFilePath = $actionRenderer->render(
+                                $pierreMiniggioRendererProject['token'],
+                                $pierreMiniggioRendererProject['account'],
+                                $pierreMiniggioRendererProject['project'],
+                                180,
+                                3,
+                                [
+                                    'typeId' => (string) rand(1, 4),
+                                    'thumbnail' => 'https://www.stored-youtube-video-thumbnails.ggio.fr/' . $youtubeId
+                                ]
+                            );
+                        } catch (GithubActionRemotionRendererException $e) {
+                            echo PHP_EOL . 'Error while rendering ! ' . $e->getMessage();
+                            break;
+                        }
+
+                        rename($temporaryVideoFilePath, $videoFilePath);
+                    } else {
+                        echo ' Error : No renderer for ' . $actionUploaderAccountName;
                         break;
                     }
-
-                    $storyFileName = $youtubeId . '.mp4';
-                    $videoFilePath = $cacheDir . $storyFileName;
-
-                    rename($temporaryVideoFilePath, $videoFilePath);
+                    echo ' Rendered !';
                 } else {
-                    echo ' Error : No renderer for ' . $actionUploaderAccountName;
-                    break;
+                    echo ' Already rendered !';
                 }
 
                 $storyVideoUrl = $cacheUrl . '/' . $storyFileName;
-
-                echo ' Rendered !';
 
                 echo PHP_EOL . 'Uploading ' . $storyToPost['title'] . ' ...';
 
