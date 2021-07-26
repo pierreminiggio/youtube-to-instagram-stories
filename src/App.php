@@ -76,7 +76,7 @@ class App
                             $pierreMiniggioRendererProject['token'],
                             $pierreMiniggioRendererProject['account'],
                             $pierreMiniggioRendererProject['project'],
-                            30,
+                            180,
                             3,
                             [
                                 'typeId' => (string) rand(1, 4),
