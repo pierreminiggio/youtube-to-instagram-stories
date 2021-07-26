@@ -88,7 +88,7 @@ class App
                         break;
                     }
 
-                    $storyFileName = $youtubeId . '.png';
+                    $storyFileName = $youtubeId . '.mp4';
 
                     $videoFilePath = $cacheDir . $storyFileName;
                     rename($temporaryVideoFilePath, $videoFilePath);
