@@ -20,7 +20,7 @@ class LinkedChannelRepository
             )->select(
                 'iscyc.youtube_id as y_id,',
                 'i.id as i_id',
-                's.action_uploader_account_name as action_uploader_account_name'
+                'i.action_uploader_account_name as action_uploader_account_name'
             )
         );
     }
