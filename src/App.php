@@ -122,6 +122,8 @@ class App
                     break;
                 }
 
+                unlink($videoFilePath);
+
                 $storyToPostRepository->insertStoryIfNeeded($storyId, $instagramChannelId, $youtubeId);
 
                 echo ' Uploaded !';
