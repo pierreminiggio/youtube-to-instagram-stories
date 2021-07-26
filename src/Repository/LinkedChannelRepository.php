@@ -18,7 +18,7 @@ class LinkedChannelRepository
                 'instagram_stories_channel as i',
                 'i.id = iscyc.instagram_id'
             )->select(
-                'iscyc.youtube_id as y_id,',
+                'iscyc.youtube_id as y_id',
                 'i.id as i_id',
                 'i.action_uploader_account_name as action_uploader_account_name'
             )
