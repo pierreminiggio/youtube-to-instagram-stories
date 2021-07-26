@@ -19,7 +19,7 @@ return [
     ],
     'db' => [
         'host' => '',
-        'database' => 'channel-storage',
+        'database' => 'channel_storage',
         'username' => '',
         'password' => ''
     ]
