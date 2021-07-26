@@ -94,7 +94,6 @@ class App
                     rename($temporaryVideoFilePath, $videoFilePath);
                 } else {
                     echo ' Error : No renderer for ' . $actionUploaderAccountName;
-
                     break;
                 }
 
@@ -118,6 +117,7 @@ class App
                         ]
                     );
                 } catch (InstagramStoryPosterException $e) {
+                    unlink($videoFilePath)
                     echo PHP_EOL . 'Error while uploading ! ' . $e->getMessage();
                     break;
                 }
