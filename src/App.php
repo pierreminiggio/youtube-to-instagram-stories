@@ -89,15 +89,15 @@ class App
                     }
 
                     $storyFileName = $youtubeId . '.mp4';
-
                     $videoFilePath = $cacheDir . $storyFileName;
+
                     rename($temporaryVideoFilePath, $videoFilePath);
                 } else {
                     echo ' Error : No renderer for ' . $actionUploaderAccountName;
                     break;
                 }
 
-                $storyVideoUrl = $cacheUrl . '/' . $videoFilePath;
+                $storyVideoUrl = $cacheUrl . '/' . $storyFileName;
 
                 echo ' Rendered !';
 
@@ -117,7 +117,7 @@ class App
                         ]
                     );
                 } catch (InstagramStoryPosterException $e) {
-                    unlink($videoFilePath)
+                    unlink($videoFilePath);
                     echo PHP_EOL . 'Error while uploading ! ' . $e->getMessage();
                     break;
                 }
