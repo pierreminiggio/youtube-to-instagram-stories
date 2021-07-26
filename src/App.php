@@ -79,8 +79,8 @@ class App
                             30,
                             3,
                             [
-                                'typeId' => (string)rand(1, 4),
-                                'thumbnail' => $storyToPost['thumbnail']
+                                'typeId' => (string) rand(1, 4),
+                                'thumbnail' => 'https://www.stored-youtube-video-thumbnails.ggio.fr/' . $youtubeId
                             ]
                         );
                     } catch (GithubActionRemotionRendererException $e) {
