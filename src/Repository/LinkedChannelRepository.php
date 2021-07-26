@@ -16,7 +16,7 @@ class LinkedChannelRepository
                 'instagram_stories_channel_youtube_channel as iscyc'
             )->join(
                 'instagram_stories_channel as i',
-                'i.id = iscta.instagram_id'
+                'i.id = iscyc.instagram_id'
             )->select(
                 'iscyc.youtube_id as y_id,',
                 'i.id as i_id',
