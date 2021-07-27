@@ -3,13 +3,18 @@
 namespace PierreMiniggio\YoutubeToInstagramStories\Repository;
 
 use PierreMiniggio\DatabaseConnection\DatabaseConnection;
+use PierreMiniggio\YoutubeToInstagramStories\App;
 
-class NonUploadedVideoRepository
+class NonUploadedStoryRepository
 {
     public function __construct(private DatabaseConnection $connection)
     {}
 
-    public function findByInstagramAndYoutubeChannelIds(int $instagramChannelId, int $youtubeChannelId): array
+    public function findByInstagramAndYoutubeChannelIdsAndUploaderAccountName(
+        int $instagramChannelId,
+        int $youtubeChannelId,
+        string $actionUploaderAccountName
+    ): array
     {
         $this->connection->start();
 
@@ -21,6 +26,20 @@ class NonUploadedVideoRepository
             WHERE i.channel_id = :channel_id
         ', ['channel_id' => $instagramChannelId]);
         $postedInstagramStoryIds = array_map(fn ($entry) => (int) $entry['id'], $postedInstagramStoryIds);
+
+        $isElonChannel = $actionUploaderAccountName === App::ELON;
+        if ($isElonChannel) {
+            // Elon Musk Addict' Shorts are posted from TikTok to Youtube and to Instagram Stories, so we obviously
+            // don't a notification saying that you should check out the new posted Short on Youtube, when it's
+            // already reposted on Instagram...
+            // So yeah, that's why I exclude them
+            $shortsIds = $this->connection->query(<<<SQL
+                SELECT id FROM youtube_video
+                WHERE channel_id = :channel_id
+                AND description like '%Shorts%'
+            SQL, ['channel_id' => $youtubeChannelId]);
+            $shortsIds = array_map(fn ($entry) => (int) $entry['id'], $shortsIds);
+        }
 
         $videosToUpload = $this->connection->query('
             SELECT
@@ -41,6 +60,11 @@ class NonUploadedVideoRepository
             WHERE y.channel_id = :channel_id
             AND yvuoi.id IS NULL
             ' . ($postedInstagramStoryIds ? 'AND isyv.id IS NULL' : '') . '
+            ' . (
+                $isElonChannel && $shortsIds
+                    ? (' AND y.id NOT IN (' . implode(', ', $shortsIds) . ')')
+                    : ''
+            ) . '
             LIMIT 1
             ;
         ', [

@@ -8,6 +8,13 @@ return [
             'project' => 'instagram-notifier-video-maker'
         ]
     ],
+    'elonRendererProjects' => [
+        [
+            'token' => '',
+            'account' => 'pierreminiggio',
+            'project' => 'instagram-notifier-thumbnail-based-video-maker'
+        ]
+    ],
     'cache_url' => 'https://cache.com',
     'proxy' => 'http://toulouse.ggio.fr:808',
     'uploaderProjects' => [

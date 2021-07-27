@@ -9,11 +9,14 @@ use PierreMiniggio\InstagramStoryPoster\InstagramStoryPoster;
 use PierreMiniggio\InstagramStoryPoster\InstagramStoryPosterException;
 use PierreMiniggio\YoutubeToInstagramStories\Connection\DatabaseConnectionFactory;
 use PierreMiniggio\YoutubeToInstagramStories\Repository\LinkedChannelRepository;
-use PierreMiniggio\YoutubeToInstagramStories\Repository\NonUploadedVideoRepository;
+use PierreMiniggio\YoutubeToInstagramStories\Repository\NonUploadedStoryRepository;
 use PierreMiniggio\YoutubeToInstagramStories\Repository\StoryToPostRepository;
 
 class App
 {
+    public const PIERREMINIGGIO = 'PIERREMINIGGIO';
+    public const ELON = 'ELON';
+
     public function run(): int
     {
         $config = require(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config.php');
@@ -35,18 +38,22 @@ class App
         $databaseConnection = (new DatabaseConnectionFactory())->makeFromConfig($config['db']);
         $fetcher = new DatabaseFetcher($databaseConnection);
         $channelRepository = new LinkedChannelRepository($fetcher);
-        $nonUploadedVideoRepository = new NonUploadedVideoRepository($databaseConnection);
+        $nonUploadedStoryRepository = new NonUploadedStoryRepository($databaseConnection);
         $storyToPostRepository = new StoryToPostRepository($databaseConnection);
 
         $channels = $channelRepository->findAll();
 
         $actionRenderer = new GithubActionRemotionRenderer();
 
-        $pierreMiniggioInstagramActionUploaderAccountName = 'PIERREMINIGGIO';
+        $pierreMiniggioInstagramActionUploaderAccountName = self::PIERREMINIGGIO;
         $pierreMiniggioRendererProjects = $config['pierreMiniggioRendererProjects'];
         $pierreMiniggioRendererProject = $pierreMiniggioRendererProjects[
             array_rand($pierreMiniggioRendererProjects)
         ];
+
+        $elonInstagramActionUploaderAccountName = self::ELON;
+        $elonRendererProjects = $config['elonRendererProjects'];
+        $elonRendererProject = $elonRendererProjects[array_rand($elonRendererProjects)];
 
         $storyPoster = new InstagramStoryPoster();
         $uploaderProjects = $config['uploaderProjects'];
@@ -58,15 +65,17 @@ class App
 
             $instagramChannelId = $channel['i_id'];
 
-            $storiesToPost = $nonUploadedVideoRepository->findByInstagramAndYoutubeChannelIds(
+            $storiesToPost = $nonUploadedStoryRepository->findByInstagramAndYoutubeChannelIdsAndUploaderAccountName(
                 $instagramChannelId,
-                $channel['y_id']
+                $channel['y_id'],
+                $actionUploaderAccountName
             );
 
             echo PHP_EOL . count($storiesToPost) . ' stor(y/ies) to post :' . PHP_EOL;
 
             foreach ($storiesToPost as $storyToPost) {
-                echo PHP_EOL . 'Rendering ' . $storyToPost['title'] . ' ...';
+                $title = $storyToPost['title'];
+                echo PHP_EOL . 'Rendering ' . $title . ' ...';
 
                 $youtubeId = $storyToPost['id'];
 
@@ -93,6 +102,25 @@ class App
                         }
 
                         rename($temporaryVideoFilePath, $videoFilePath);
+                    } elseif ($actionUploaderAccountName === $elonInstagramActionUploaderAccountName) {
+                        try {
+                            $temporaryVideoFilePath = $actionRenderer->render(
+                                $elonRendererProject['token'],
+                                $elonRendererProject['account'],
+                                $elonRendererProject['project'],
+                                180,
+                                3,
+                                [
+                                    'thumbnail' => 'https://www.stored-youtube-video-thumbnails.ggio.fr/' . $youtubeId,
+                                    'title' => $title,
+                                ]
+                            );
+                        } catch (GithubActionRemotionRendererException $e) {
+                            echo PHP_EOL . 'Error while rendering ! ' . $e->getMessage();
+                            break;
+                        }
+
+                        rename($temporaryVideoFilePath, $videoFilePath);
                     } else {
                         echo ' Error : No renderer for ' . $actionUploaderAccountName;
                         break;
@@ -104,7 +132,7 @@ class App
 
                 $storyVideoUrl = $cacheUrl . '/' . $storyFileName;
 
-                echo PHP_EOL . 'Uploading ' . $storyToPost['title'] . ' ...';
+                echo PHP_EOL . 'Uploading ' . $title . ' ...';
 
                 try {
                     $storyId = $storyPoster->upload(
