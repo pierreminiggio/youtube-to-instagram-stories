@@ -36,7 +36,7 @@ class NonUploadedStoryRepository
             $shortsIds = $this->connection->query(<<<SQL
                 SELECT id FROM youtube_video
                 WHERE channel_id = :channel_id
-                AND description like '%Shorts%'
+                AND description like '%#Shorts%'
             SQL, ['channel_id' => $youtubeChannelId]);
             $shortsIds = array_map(fn ($entry) => (int) $entry['id'], $shortsIds);
         }
