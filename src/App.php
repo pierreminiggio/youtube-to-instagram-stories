@@ -135,7 +135,7 @@ class App
                 echo PHP_EOL . 'Uploading ' . $title . ' ...';
 
                 try {
-                    $storyId = $storyPoster->upload(
+                    $storyIds = $storyPoster->upload(
                         $uploaderProject['token'],
                         $uploaderProject['account'],
                         $uploaderProject['project'],
@@ -155,7 +155,9 @@ class App
 
                 unlink($videoFilePath);
 
-                $storyToPostRepository->insertStoryIfNeeded($storyId, $instagramChannelId, $youtubeId);
+                foreach ($storyIds as $storyId) {
+                    $storyToPostRepository->insertStoryIfNeeded($storyId, $instagramChannelId, $youtubeId);
+                }
 
                 echo ' Uploaded !';
             }

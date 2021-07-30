@@ -524,12 +524,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pierreminiggio/php-instagram-story-poster.git",
-                "reference": "79d3333e39a0d3dc38f09766b866b60de519312b"
+                "reference": "e5dc64d1ea635a42d77ca3d436857f4d786702be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pierreminiggio/php-instagram-story-poster/zipball/79d3333e39a0d3dc38f09766b866b60de519312b",
-                "reference": "79d3333e39a0d3dc38f09766b866b60de519312b",
+                "url": "https://api.github.com/repos/pierreminiggio/php-instagram-story-poster/zipball/e5dc64d1ea635a42d77ca3d436857f4d786702be",
+                "reference": "e5dc64d1ea635a42d77ca3d436857f4d786702be",
                 "shasum": ""
             },
             "require": {
@@ -556,9 +556,9 @@
             ],
             "support": {
                 "issues": "https://github.com/pierreminiggio/php-instagram-story-poster/issues",
-                "source": "https://github.com/pierreminiggio/php-instagram-story-poster/tree/1.0.2"
+                "source": "https://github.com/pierreminiggio/php-instagram-story-poster/tree/2.0.0"
             },
-            "time": "2021-07-25T11:36:01+00:00"
+            "time": "2021-07-30T23:30:30+00:00"
         }
     ],
     "packages-dev": [],
