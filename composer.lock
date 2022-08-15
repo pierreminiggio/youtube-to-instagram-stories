@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c609f2fe283d4b237872cb3c7c6ab8c",
+    "content-hash": "8c4b8153d38bcf42f27ea7bf31ee8c02",
     "packages": [
         {
             "name": "neutronstars/database-sql",
@@ -165,26 +165,22 @@
         },
         {
             "name": "pierreminiggio/github-action-remotion-renderer",
-            "version": "dev-main",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pierreminiggio/php-github-action-remotion-renderer.git",
-                "reference": "3f00fafacd9f35072b434508cbcc81e3ba01999f"
+                "reference": "9702b842912a6180c70b22f1c0ce84e1aea50624"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pierreminiggio/php-github-action-remotion-renderer/zipball/3f00fafacd9f35072b434508cbcc81e3ba01999f",
-                "reference": "3f00fafacd9f35072b434508cbcc81e3ba01999f",
+                "url": "https://api.github.com/repos/pierreminiggio/php-github-action-remotion-renderer/zipball/9702b842912a6180c70b22f1c0ce84e1aea50624",
+                "reference": "9702b842912a6180c70b22f1c0ce84e1aea50624",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4.0",
-                "pierreminiggio/github-action-run-starter-and-artifact-downloader": "9999999-dev"
+                "pierreminiggio/github-action-run-starter-and-artifact-downloader": "^2.0"
             },
-            "require-dev": {
-                "phpunit/phpunit": "10.0.x-dev"
-            },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -201,9 +197,9 @@
             ],
             "support": {
                 "issues": "https://github.com/pierreminiggio/php-github-action-remotion-renderer/issues",
-                "source": "https://github.com/pierreminiggio/php-github-action-remotion-renderer/tree/1.3.0"
+                "source": "https://github.com/pierreminiggio/php-github-action-remotion-renderer/tree/2.0.0"
             },
-            "time": "2021-08-18T23:01:50+00:00"
+            "time": "2022-08-15T08:41:19+00:00"
         },
         {
             "name": "pierreminiggio/github-action-run",
@@ -356,7 +352,7 @@
         },
         {
             "name": "pierreminiggio/github-action-run-starter-and-artifact-downloader",
-            "version": "dev-main",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pierreminiggio/php-github-action-run-starter-and-artifact-downloader.git",
@@ -379,7 +375,6 @@
             "require-dev": {
                 "phpunit/phpunit": "^9.5"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -512,26 +507,25 @@
         },
         {
             "name": "pierreminiggio/instagram-story-poster",
-            "version": "dev-main",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pierreminiggio/php-instagram-story-poster.git",
-                "reference": "e5dc64d1ea635a42d77ca3d436857f4d786702be"
+                "reference": "075c05eadfb4727d7d1d9b07ec7d7cbf2d2b5e63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pierreminiggio/php-instagram-story-poster/zipball/e5dc64d1ea635a42d77ca3d436857f4d786702be",
-                "reference": "e5dc64d1ea635a42d77ca3d436857f4d786702be",
+                "url": "https://api.github.com/repos/pierreminiggio/php-instagram-story-poster/zipball/075c05eadfb4727d7d1d9b07ec7d7cbf2d2b5e63",
+                "reference": "075c05eadfb4727d7d1d9b07ec7d7cbf2d2b5e63",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.0.0",
-                "pierreminiggio/github-action-run-starter-and-artifact-downloader": "dev-main"
+                "pierreminiggio/github-action-run-starter-and-artifact-downloader": "^2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "10.0.x-dev"
+                "phpunit/phpunit": "^9.5"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -548,18 +542,15 @@
             ],
             "support": {
                 "issues": "https://github.com/pierreminiggio/php-instagram-story-poster/issues",
-                "source": "https://github.com/pierreminiggio/php-instagram-story-poster/tree/2.0.0"
+                "source": "https://github.com/pierreminiggio/php-instagram-story-poster/tree/3.0.0"
             },
-            "time": "2021-07-30T23:30:30+00:00"
+            "time": "2022-08-15T08:36:31+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "dev",
-    "stability-flags": {
-        "pierreminiggio/github-action-remotion-renderer": 20,
-        "pierreminiggio/instagram-story-poster": 20
-    },
+    "minimum-stability": "stable",
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

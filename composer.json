@@ -14,10 +14,9 @@
     "config": {
         "sort-packages": true
     },
-    "minimum-stability": "dev",
     "require": {
         "pierreminiggio/database-fetcher": "^1.0",
-        "pierreminiggio/github-action-remotion-renderer": "dev-main",
-        "pierreminiggio/instagram-story-poster": "dev-main"
+        "pierreminiggio/github-action-remotion-renderer": "^2.0",
+        "pierreminiggio/instagram-story-poster": "^3.0"
     }
 }
