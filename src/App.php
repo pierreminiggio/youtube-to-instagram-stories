@@ -34,6 +34,8 @@ class App
 
             return 0;
         }
+        
+        $elonMuskAddictInstagramAccountBlocked = $config['elon_musk_addict_instagram_account_blocked'] ?? false;
 
         $databaseConnection = (new DatabaseConnectionFactory())->makeFromConfig($config['db']);
         $fetcher = new DatabaseFetcher($databaseConnection);
@@ -62,6 +64,10 @@ class App
         foreach ($channels as $channel) {
             $actionUploaderAccountName = $channel['action_uploader_account_name'];
             echo PHP_EOL . PHP_EOL . 'Checking channel ' . $actionUploaderAccountName . '...';
+            
+            if ($elonMuskAddictInstagramAccountBlocked && $actionUploaderAccountName === $elonInstagramActionUploaderAccountName) {
+                echo 'This Instagram account isn\'t working at the moment !';
+            }
 
             $instagramChannelId = $channel['i_id'];
 
