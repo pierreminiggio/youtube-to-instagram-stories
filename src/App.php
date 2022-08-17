@@ -67,6 +67,7 @@ class App
             
             if ($elonMuskAddictInstagramAccountBlocked && $actionUploaderAccountName === $elonInstagramActionUploaderAccountName) {
                 echo 'This Instagram account isn\'t working at the moment !';
+                continue;
             }
 
             $instagramChannelId = $channel['i_id'];
